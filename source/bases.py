@@ -72,33 +72,7 @@ def convert(digits, base1, base2):
 
     if base1 == base2:
         return digits
-    #  Convert digits from base 2 to base 16 (and vice versa)
-    # if [base1, base2] == [2, 16]:
-    #     num = decode(digits, base1)
-    #     base16 = encode(num, base2)
-    #     return str(base16)
-    # if [base1, base2] == [16, 2]:
-    #     num = decode(digits, base1)
-    #     base2 = encode(num, base2)
-    #     return str(base2)
-
-    #  Convert digits from base 2 to base 10 (and vice versa)
-    # if [base1, base2] == [2, 10]:
-    #     num = str(decode(digits, base1))
-    #     return num
-    # if [base1, base2] == [10, 2]:
-    #     base2 = encode(digits, base2)
-    #     return str(base2)
-
-
-    # Convert digits from base 10 to base 16 (and vice versa)
-    # if [base1, base2] == [10, 16]:
-    #     base16 = encode(digits, base2)
-    #     return str(base16)
-    # if [base1, base2] == [16, 10]:
-    #     num = decode(digits, base1)
-    #     return str(num)
-    # Convert digits from any base to any base (2 up to 36)
+    
 
     num = decode(digits, base1)
     basenew = encode(num, base2)
