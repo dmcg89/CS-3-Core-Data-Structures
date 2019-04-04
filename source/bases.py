@@ -72,7 +72,7 @@ def convert(digits, base1, base2):
 
     if base1 == base2:
         return digits
-    
+
 
     num = decode(digits, base1)
     basenew = encode(num, base2)
@@ -82,21 +82,21 @@ def convert(digits, base1, base2):
 # print(decode('4B5', 16))
 # print(encode(12313, 2))
 #
-# def main():
-#     """Read command-line arguments and convert given digits between bases."""
-#     import sys
-#     args = sys.argv[1:]  # Ignore script file name
-#     if len(args) == 3:
-#         digits = args[0]
-#         base1 = int(args[1])
-#         base2 = int(args[2])
-#         # Convert given digits between bases
-#         result = convert(digits, base1, base2)
-#         print('{} in base {} is {} in base {}'.format(digits, base1, result, base2))
-#     else:
-#         print('Usage: {} digits base1 base2'.format(sys.argv[0]))
-#         print('Converts digits from base1 to base2')
-#
-#
-# if __name__ == '__main__':
-#     main()
+def main():
+    """Read command-line arguments and convert given digits between bases."""
+    import sys
+    args = sys.argv[1:]  # Ignore script file name
+    if len(args) == 3:
+        digits = args[0]
+        base1 = int(args[1])
+        base2 = int(args[2])
+        # Convert given digits between bases
+        result = convert(digits, base1, base2)
+        print('{} in base {} is {} in base {}'.format(digits, base1, result, base2))
+    else:
+        print('Usage: {} digits base1 base2'.format(sys.argv[0]))
+        print('Converts digits from base1 to base2')
+
+
+if __name__ == '__main__':
+    main()
