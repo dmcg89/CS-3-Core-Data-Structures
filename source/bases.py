@@ -52,7 +52,6 @@ def encode(number, base):
     while number > 0:
         remainder = number % base
         number = number // base
-        print(number)
         if remainder > 9:                           # uses letter representation if
                                                     # remainder > 9
             base_rep += str(chr(remainder + 87))    # adds 87 to convert to unicode value
@@ -70,15 +69,42 @@ def convert(digits, base1, base2):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
-    # TODO: Convert digits from base 2 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 2 to base 10 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from any base to any base (2 up to 36)
-    # ...
 
+    if base1 == base2:
+        return digits
+    #  Convert digits from base 2 to base 16 (and vice versa)
+    # if [base1, base2] == [2, 16]:
+    #     num = decode(digits, base1)
+    #     base16 = encode(num, base2)
+    #     return str(base16)
+    # if [base1, base2] == [16, 2]:
+    #     num = decode(digits, base1)
+    #     base2 = encode(num, base2)
+    #     return str(base2)
+
+    #  Convert digits from base 2 to base 10 (and vice versa)
+    # if [base1, base2] == [2, 10]:
+    #     num = str(decode(digits, base1))
+    #     return num
+    # if [base1, base2] == [10, 2]:
+    #     base2 = encode(digits, base2)
+    #     return str(base2)
+
+
+    # Convert digits from base 10 to base 16 (and vice versa)
+    # if [base1, base2] == [10, 16]:
+    #     base16 = encode(digits, base2)
+    #     return str(base16)
+    # if [base1, base2] == [16, 10]:
+    #     num = decode(digits, base1)
+    #     return str(num)
+    # Convert digits from any base to any base (2 up to 36)
+
+    num = decode(digits, base1)
+    basenew = encode(num, base2)
+    return basenew
+
+# print(convert(10, 10, 16))
 # print(decode('4B5', 16))
 # print(encode(12313, 2))
 #
