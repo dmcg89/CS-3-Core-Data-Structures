@@ -18,8 +18,20 @@ def is_palindrome(text):
 
 
 def is_palindrome_iterative(text):
-    # TODO: implement the is_palindrome function iteratively here
-    pass
+    # implement the is_palindrome function iteratively here
+    remove_punctuation = text.translate(str.maketrans('', '', string.punctuation))  # remove punctuation from text
+    text_list = list(remove_punctuation)    # turn all text lowercase and put it in a list of letters
+    palindrome_check = text_list
+    palindrome_check.reverse()
+    print(text_list)
+    print(palindrome_check)
+    print(string.ascii_lowercase)
+    if text_list == palindrome_check:
+        print('palindrome')
+        return True
+    else:
+        print('not a palindrome')
+        return False
     # once implemented, change is_palindrome to call is_palindrome_iterative
     # to verify that your iterative implementation passes all tests
 
@@ -30,20 +42,21 @@ def is_palindrome_recursive(text, left=None, right=None):
     # once implemented, change is_palindrome to call is_palindrome_recursive
     # to verify that your iterative implementation passes all tests
 
+is_palindrome_iterative('race.car')
 
-def main():
-    import sys
-    args = sys.argv[1:]  # Ignore script file name
-    if len(args) > 0:
-        for arg in args:
-            is_pal = is_palindrome(arg)
-            result = 'PASS' if is_pal else 'FAIL'
-            is_str = 'is' if is_pal else 'is not'
-            print('{}: {} {} a palindrome'.format(result, repr(arg), is_str))
-    else:
-        print('Usage: {} string1 string2 ... stringN'.format(sys.argv[0]))
-        print('  checks if each argument given is a palindrome')
+# def main():
+#     import sys
+#     args = sys.argv[1:]  # Ignore script file name
+#     if len(args) > 0:
+#         for arg in args:
+#             is_pal = is_palindrome(arg)
+#             result = 'PASS' if is_pal else 'FAIL'
+#             is_str = 'is' if is_pal else 'is not'
+#             print('{}: {} {} a palindrome'.format(result, repr(arg), is_str))
+#     else:
+#         print('Usage: {} string1 string2 ... stringN'.format(sys.argv[0]))
+#         print('  checks if each argument given is a palindrome')
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
