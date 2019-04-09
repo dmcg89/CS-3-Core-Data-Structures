@@ -14,16 +14,11 @@ def factorial(n):
 
 def factorial_iterative(n):
     #  implement the factorial function iteratively here
-    if n == 0 or n == 1:
-        return 1
     prod = 1
     while n > 1:
         prod *= n
         n -= 1
     return prod
-    # once implemented, change factorial (above) to call factorial_iterative
-    # to verify that your iterative implementation passes all tests
-
 
 def factorial_recursive(n):
     # check if n is one of the base cases
