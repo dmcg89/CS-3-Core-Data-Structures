@@ -51,7 +51,7 @@ def binary_search_iterative(array, item):
 def binary_search_recursive(array, item, left=0, right=None):
     # implement binary search recursively here
 
-    if right == None:
+    if right == None:  
         right = len(array) - 1
     elif left > right:
         return None
