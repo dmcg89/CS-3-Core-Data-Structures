@@ -40,6 +40,7 @@ def find_all_indexes(text, pattern):
     indices_list = []
     text = list(text)
     i = 0
+    # TODO: base case
     while i < len(text):
         index = find_index(''.join(text), pattern)
         if index is not None:
