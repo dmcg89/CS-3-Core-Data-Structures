@@ -19,12 +19,13 @@ def find_index(text, pattern):
     # Implement find_index here (iteratively and/or recursively)
     if len(pattern) == 0:
         return False
-    for i in range((len(text) - 1) - len(pattern)):
+    for i in range(len(text) - len(pattern) + 1):
         if text[i] == pattern[0]:             # Find if first index in pattern matches in string
             pattern_match = True
             for j in range(1, len(pattern)):   # Check if follow indices match pattern
                if text[i + j] != pattern[j]:  # Does not match pattern
                    pattern_match = False
+                   i += 1
                    break
             if pattern_match == True:         # Pattern matches
                 return i
@@ -50,8 +51,6 @@ def find_all_indexes(text, pattern):
         else:
             i += 1
     return indices_list
-
-
 
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)
