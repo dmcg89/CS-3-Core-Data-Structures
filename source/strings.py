@@ -41,16 +41,24 @@ def find_all_indexes(text, pattern):
     indices_list = []
     text = list(text)
     i = 0
-    # TODO: base case
+    offset = 0
+    if pattern == '':
+        for index in range(len(text)):
+            indices_list.append(index)
+        return indices_list
     while i < len(text):
         index = find_index(''.join(text), pattern)
         if index is not None:
-            indices_list.append(index)
-            text = text[(index + 1):]
+            if index + offset not in indices_list:
+                indices_list.append(index + offset)
+            text = text[1:]
+            offset += 1
             i = 0
         else:
             i += 1
+    print (indices_list)
     return indices_list
+
 
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)
@@ -61,6 +69,7 @@ def test_string_algorithms(text, pattern):
     # TODO: Uncomment these lines after you implement find_all_indexes
     indexes = find_all_indexes(text, pattern)
     print('find_all_indexes({!r}, {!r}) => {}'.format(text, pattern, indexes))
+
 
 
 def main():
