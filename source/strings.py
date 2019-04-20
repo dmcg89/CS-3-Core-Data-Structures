@@ -22,7 +22,7 @@ def find_index(text, pattern):
     for i in range(len(text) - len(pattern) + 1):
         if text[i] == pattern[0]:             # Find if first index in pattern matches in string
             pattern_match = True
-            for j in range(1, len(pattern)):   # Check if follow indices match pattern
+            for j in range(1, len(pattern)):  # Check if follow indices match pattern
                if text[i + j] != pattern[j]:  # Does not match pattern
                    pattern_match = False
                    i += 1

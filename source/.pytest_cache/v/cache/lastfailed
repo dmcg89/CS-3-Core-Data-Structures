@@ -1,5 +1,3 @@
 {
-  "queue_test.py": true, 
-  "stack_test.py": true, 
   "strings.py::test_string_algorithms": true
 }
