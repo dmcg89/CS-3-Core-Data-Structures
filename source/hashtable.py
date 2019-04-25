@@ -26,8 +26,10 @@ class HashTable(object):
     def load_factor(self):
         """Return the load factor, the ratio of number of entries to buckets.
         Best and worst case running time: ??? under what conditions? [TODO]"""
-        # TODO: Calculate load factor
-        # return ...
+        #  Calculate load factor
+        # load_factor = self.size / len(self.buckets)
+        # return load_factor
+        return self.size / len(self.buckets)
 
     def keys(self):
         """Return a list of all keys in this hash table.
@@ -51,7 +53,7 @@ class HashTable(object):
 
     def items(self):
         """Return a list of all entries (key-value pairs) in this hash table.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: O(n) - n being the number of key-value"""
         # Collect all pairs of key-value entries in each of the buckets
         all_items = []
         for bucket in self.buckets:
@@ -111,12 +113,14 @@ class HashTable(object):
             # In this case, the given key's value is being updated
             # Remove the old key-value entry from the bucket first
             bucket.delete(entry)
+            self.size -= 1
         # Insert the new key-value entry into the bucket in either case
         bucket.append((key, value))
-        # TODO: Check if the load factor exceeds a threshold such as 0.75
-        # ...
-        # TODO: If so, automatically resize to reduce the load factor
-        # ...
+        self.size += 1
+        #  Check if the load factor exceeds a threshold such as 0.75
+        if self.load_factor() > .75:
+        # : If so, automatically resize to reduce the load factor
+            self._resize()
 
     def delete(self, key):
         """Delete the given key and its associated value, or raise KeyError.
@@ -130,6 +134,7 @@ class HashTable(object):
         if entry is not None:  # Found
             # Remove the key-value entry from the bucket
             bucket.delete(entry)
+            self.size -= 1
         else:  # Not found
             raise KeyError('Key not found: {}'.format(key))
 
@@ -137,22 +142,28 @@ class HashTable(object):
         """Resize this hash table's buckets and rehash all key-value entries.
         Should be called automatically when load factor exceeds a threshold
         such as 0.75 after an insertion (when set is called with a new key).
-        Best and worst case running time: ??? under what conditions? [TODO]
-        Best and worst case space usage: ??? what uses this memory? [TODO]"""
+        Best and worst case running time: O(2n+b) = O(b)
+        Best and worst case space usage: Making a new HT uses memory O(b)"""
         # If unspecified, choose new size dynamically based on current size
         if new_size is None:
             new_size = len(self.buckets) * 2  # Double size
         # Option to reduce size if buckets are sparsely filled (low load factor)
         elif new_size is 0:
             new_size = len(self.buckets) / 2  # Half size
-        # TODO: Get a list to temporarily hold all current key-value entries
-        # ...
-        # TODO: Create a new list of new_size total empty linked list buckets
-        # ...
-        # TODO: Insert each key-value entry into the new list of buckets,
-        # which will rehash them into a new bucket index based on the new size
-        # ...
+        #  Get a list to temporarily hold all current key-value entries
+        key_values = self.items()  # O(n)
+        #  Create a new list of new_size total empty linked list buckets
+        # self.buckets = [LinkedList() for i in range(new_size)]
+        
+        # # reset our size back to 0
+        # self.size = 0
+        self.__init__(new_size)     # reinitialize an instance of our class
+                                    # O(2b) -> O(b) time + space
 
+        #  Insert each key-value entry into the new list of buckets,
+        # which will rehash them into a new bucket index based on the new size
+        for key, value in key_values:   # O(n)
+            self.set(key, value)
 
 def test_hash_table():
     ht = HashTable(4)
