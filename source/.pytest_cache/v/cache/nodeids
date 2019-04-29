@@ -1,10 +1,6 @@
 [
-  "set_test.py::SetTest::test_add_and_contains",
-  "set_test.py::SetTest::test_contains",
-  "set_test.py::SetTest::test_delete",
-  "set_test.py::SetTest::test_difference",
-  "set_test.py::SetTest::test_init",
-  "set_test.py::SetTest::test_intersection",
-  "set_test.py::SetTest::test_subset",
-  "set_test.py::SetTest::test_union"
+  "class_redact.py::SetTest::test_empty_banned",
+  "class_redact.py::SetTest::test_multiple_instances",
+  "class_redact.py::SetTest::test_one_word",
+  "class_redact.py::SetTest::test_two_words"
 ]
