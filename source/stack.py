@@ -41,7 +41,7 @@ class LinkedStack(object):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
         # Return top item, if any
-        if (self.is_empty()):
+        if self.is_empty():
             print('list is empty')
             return None
 
@@ -52,7 +52,7 @@ class LinkedStack(object):
         or raise ValueError if this stack is empty.
         Running time: O(1) - change head to head.next"""
         # Remove and return top item, if any (implement with self.list.delete instead)
-        if (self.is_empty()):
+        if self.is_empty():
             raise ValueError("Stack is empty!")
         top_item = self.list.head.data
         self.list.head = self.list.head.next
@@ -94,7 +94,6 @@ class ArrayStack(object):
         Running time: O(1)* - generally empty space to append at end of list"""
         #  Insert given item
         self.list.append(item)
-        print (self.list)
         return self
 
     def peek(self):
@@ -120,6 +119,6 @@ class ArrayStack(object):
 
 # Implement LinkedStack and ArrayStack above, then change the assignment below
 # to use each of your Stack implementations to verify they each pass all tests
-Stack = LinkedStack
-# Stack = ArrayStack
+# Stack = LinkedStack
+Stack = ArrayStack
 
