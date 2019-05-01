@@ -1,3 +1,5 @@
 {
+  "binarytree_test.py": true,
+  "binarytree_test.py::BinaryTreeNodeTest::test_height": true,
   "strings.py::test_string_algorithms": true
 }

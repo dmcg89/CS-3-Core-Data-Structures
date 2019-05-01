@@ -1,6 +1,3 @@
 [
-  "class_redact.py::SetTest::test_empty_banned",
-  "class_redact.py::SetTest::test_multiple_instances",
-  "class_redact.py::SetTest::test_one_word",
-  "class_redact.py::SetTest::test_two_words"
+  "binarytree_test.py::BinaryTreeNodeTest::test_height"
 ]
