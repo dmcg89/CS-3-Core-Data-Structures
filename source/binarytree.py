@@ -1,5 +1,6 @@
 #!python
-from queue import Queue
+from queue import LinkedQueue
+from stack import LinkedStack
 
 class BinaryTreeNode(object):
 
@@ -310,14 +311,18 @@ class BinarySearchTree(object):
     def _traverse_in_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive in-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        Running time:   O(3n) because each node is called recursively 3 times.
+                        Reduces to O(n)
+        Memory usage:   If tree is balanced, height of tree is log(n) and memory
+                        usage is O(log(n))
+                        If Tree is unblanced, height of tree is approx n and
+                        memory usasge is O(n)"""
         #  Traverse left subtree, if it exists
         if node is not None:
             self._traverse_in_order_recursive(node.left, visit)
         #  Visit this node's data with given function
             visit(node.data)
-        # TODO: Traverse right subtree, if it exists
+        #  Traverse right subtree, if it exists
             self._traverse_in_order_recursive(node.right, visit)
         
         
@@ -327,8 +332,16 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Traverse in-order without using recursion (stretch challenge)
-        pass
+        #  Traverse in-order without using recursion (stretch challenge)
+        while node.left is not None:            # Find left most node to start
+            node = node.left
+        visit(node)
+        while node != None:
+            node = self._find_parent_node_recursive(node.data, node)
+            visit(node)
+            while node.right.left:
+                pass
+
 
     def items_pre_order(self):
         """Return a pre-order list of all items in this binary search tree."""
@@ -347,9 +360,9 @@ class BinarySearchTree(object):
         TODO: Memory usage: ??? Why and under what conditions?"""
 
         if node is not None:
-            visit(node.data)                                #  Visit this node's data with given function
-            self._traverse_pre_order_recursive(node.left, visit) #  Traverse left subtree, if it exists
-            self._traverse_pre_order_recursive(node.right, visit) #  Traverse right subtree, if it exists
+            visit(node.data)                                        #  Visit this node's data with given function
+            self._traverse_pre_order_recursive(node.left, visit)    #  Traverse left subtree, if it exists
+            self._traverse_pre_order_recursive(node.right, visit)   #  Traverse right subtree, if it exists
 
     def _traverse_pre_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative pre-order traversal (DFS).
@@ -398,10 +411,12 @@ class BinarySearchTree(object):
     def _traverse_level_order_iterative(self, start_node, visit):
         """Traverse this binary tree with iterative level-order traversal (BFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        Running time:   4 operations for each visited node (dequeue, visit, 2 enqueues(children))
+                        O(4n) reduces to O(n)
+        Memory usage:   'Width' of tree or most items that end up in queue O(w)
+                        Worst case is a balanced tree or greatest # of leaves"""
         #  Create queue to store nodes not yet traversed in level-order
-        queue = Queue()
+        queue = LinkedQueue()
         #  Enqueue given starting node
         queue.enqueue(start_node)
         #  Loop until queue is empty
