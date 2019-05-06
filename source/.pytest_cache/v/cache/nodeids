@@ -3,6 +3,7 @@
   "binarytree_test.py::BinaryTreeNodeTest::test_init",
   "binarytree_test.py::BinaryTreeNodeTest::test_is_branch",
   "binarytree_test.py::BinaryTreeNodeTest::test_is_leaf",
+  "binarytree_test.py::BinarySearchTreeTest::test_delete_with_3_items",
   "binarytree_test.py::BinarySearchTreeTest::test_init",
   "binarytree_test.py::BinarySearchTreeTest::test_init_with_list",
   "binarytree_test.py::BinarySearchTreeTest::test_init_with_list_of_strings",

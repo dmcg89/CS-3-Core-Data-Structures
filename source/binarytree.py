@@ -16,9 +16,7 @@ class BinaryTreeNode(object):
     def is_leaf(self):
         """Return True if this node is a leaf (has no children)."""
         #  Check if both left child and right child have no value
-        # has_no_left_child = self.left is None
-        # has_no_right_child = self.right is None
-        # return has_no_left_child and has_no_right_child
+        
         return self.left is None and self.right is None
 
     def is_branch(self):
@@ -246,10 +244,59 @@ class BinarySearchTree(object):
         """Remove given item from this tree, if present, or raise ValueError.
         TODO: Best case running time: ??? under what conditions?
         TODO: Worst case running time: ??? under what conditions?"""
-        # TODO: Use helper methods and break this algorithm down into 3 cases
+        # Use helper methods and break this algorithm down into 3 cases
         # based on how many children the node containing the given item has and
         # implement new helper methods for subtasks of the more complex cases
-        pass
+        # item doesnt exist
+        if not self.contains(item):
+            raise ValueError('Given item not in tree')
+        
+        
+        node = self._find_node_recursive(item, self.root)          # Find Node to be deleted
+        
+        parent = self._find_parent_node_recursive(item, node)      # Find Parent of node to delete
+
+        # Node is a leaf
+        if node.is_leaf:
+            node.data = None                                        # Remove data from node
+            if parent.left == node:                                 # If node is left child, remove pointer
+                parent.left = None
+            elif parent.right == node:                              # If node is right child, remove pointer
+                parent.right = None
+                
+        # Node to delete has one child
+        if node.left == None or node.right == None:
+            node.data = None                                        # Remove data from node
+            if node == parent.left:                                 # If node is left child, remove pointer
+                if node.left:
+                    parent.left = node.left
+                if node.right:
+                    parent.left = node.right
+            if node == parent.right:
+                if node.left:
+                    parent.right = node.left
+                if node.right:
+                    parent.right = node.right
+
+        # Node to delete has 2 children
+        if node.left != None and node.right != None:
+            successor = node.right
+
+            while successor.is_leaf() == False:
+                successor = successor.left
+
+            successor.left = node.left
+            successor.right = node.right
+
+            if parent:
+                if node == parent.left:                                 # If node is left child, remove pointer
+                    parent.left.data = successor.data
+                if node == parent.right:
+                    parent.right.data = successor.data
+                successor_parent = self._find_parent_node_recursive(successor.data, successor)
+                successor_parent.left = None                   
+            else:
+                self.root.data = successor.data
 
     def items_in_order(self):
         """Return an in-order list of all items in this binary search tree."""
@@ -265,12 +312,13 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Traverse left subtree, if it exists
-        if node.left is not None:
-            return(_traverse_in_order_recursive(node.left))
+        #  Traverse left subtree, if it exists
+        if node is not None:
+            self._traverse_in_order_recursive(node.left, visit)
         #  Visit this node's data with given function
-        
+            visit(node.data)
         # TODO: Traverse right subtree, if it exists
+            self._traverse_in_order_recursive(node.right, visit)
         
         
 
@@ -297,13 +345,11 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # # TODO: Visit this node's data with given function
-        # ...
-        # # TODO: Traverse left subtree, if it exists
-        # ...
-        # # TODO: Traverse right subtree, if it exists
-        # ...
-        pass
+
+        if node is not None:
+            visit(node.data)                                #  Visit this node's data with given function
+            self._traverse_pre_order_recursive(node.left, visit) #  Traverse left subtree, if it exists
+            self._traverse_pre_order_recursive(node.right, visit) #  Traverse right subtree, if it exists
 
     def _traverse_pre_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative pre-order traversal (DFS).
@@ -327,13 +373,10 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # # TODO: Traverse left subtree, if it exists
-        # ...
-        # # TODO: Traverse right subtree, if it exists
-        # ...
-        # # TODO: Visit this node's data with given function
-        # ...
-        pass
+        if node is not None:
+            self._traverse_post_order_recursive(node.left, visit)
+            self._traverse_post_order_recursive(node.right, visit)
+            visit(node.data)
 
     def _traverse_post_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative post-order traversal (DFS).
