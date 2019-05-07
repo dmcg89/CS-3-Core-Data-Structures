@@ -1,6 +1,7 @@
 #!python
 from queue import LinkedQueue
 from stack import LinkedStack
+from linkedlist import LinkedList
 
 class BinaryTreeNode(object):
 
@@ -406,11 +407,14 @@ class BinarySearchTree(object):
     def items_post_order(self):
         """Return a post-order list of all items in this binary search tree."""
         items = []
+        items_linked = LinkedList()
         if not self.is_empty():
             # Traverse tree post-order from root, appending each node's item
-            self._traverse_post_order_recursive(self.root, items.append)
+            # self._traverse_post_order_recursive(self.root, items.append)
+            self._traverse_post_order_iterative(self.root, items_linked.prepend)
         # Return post-order list of all items in tree
-        return items
+        # return items
+        return items_linked.items()
 
     def _traverse_post_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive post-order traversal (DFS).
@@ -425,10 +429,19 @@ class BinarySearchTree(object):
     def _traverse_post_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative post-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
+         Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Traverse post-order without using recursion (stretch challenge)
-        pass
+        #  Traverse post-order without using recursion (stretch challenge)
+        stack = LinkedStack()
+        stack.push(node)
+        while not stack.is_empty():
+            node = stack.pop()
+            visit(node.data)
+            if node.left:
+                stack.push(node.left)
+            if node.right:
+                stack.push(node.right)
+
 
     def items_level_order(self):
         """Return a level-order list of all items in this binary search tree."""
