@@ -304,7 +304,8 @@ class BinarySearchTree(object):
         items = []
         if not self.is_empty():
             # Traverse tree in-order from root, appending each node's item
-            self._traverse_in_order_recursive(self.root, items.append)
+            # self._traverse_in_order_recursive(self.root, items.append)
+            self._traverse_in_order_iterative(self.root, items.append)
         # Return in-order list of all items in tree
         return items
 
@@ -330,17 +331,28 @@ class BinarySearchTree(object):
     def _traverse_in_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative in-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        Running time:   O(3n) because each node is called  3 times.
+                        Reduces to O(n)
+        Memory usage:   If tree is balanced, height of tree is approx log(n) and memory
+                        usage is O(log(n))
+                        If Tree is unblanced, height of tree is approx n and
+                        memory usasge is O(n)"""
         #  Traverse in-order without using recursion (stretch challenge)
-        while node.left is not None:            # Find left most node to start
-            node = node.left
-        visit(node)
-        while node != None:
-            node = self._find_parent_node_recursive(node.data, node)
-            visit(node)
-            while node.right.left:
-                pass
+        stack = LinkedStack()
+
+        while True:
+            if node == None:
+                if stack.is_empty():
+                    break
+                pop = stack.pop()
+                visit(pop.data)
+                node = pop.right
+            else:
+                stack.push(node)
+                node = node.left
+                
+
+
 
 
     def items_pre_order(self):
