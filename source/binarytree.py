@@ -360,7 +360,8 @@ class BinarySearchTree(object):
         items = []
         if not self.is_empty():
             # Traverse tree pre-order from root, appending each node's item
-            self._traverse_pre_order_recursive(self.root, items.append)
+            self._traverse_pre_order_iterative(self.root, items.append)
+            # self._traverse_pre_order_recursive(self.root, items.append)
         # Return pre-order list of all items in tree
         return items
 
@@ -368,8 +369,13 @@ class BinarySearchTree(object):
     def _traverse_pre_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive pre-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        Running time:   O(3n) because each node is called recursively 3 times.
+                        Reduces to O(n)
+        Memory usage:   If tree is balanced, height of tree is log(n) and memory
+                        usage is O(log(n))
+                        If Tree is unblanced, height of tree is approx n and
+                        memory usasge is O(n)"""
+
 
         if node is not None:
             visit(node.data)                                        #  Visit this node's data with given function
@@ -379,10 +385,23 @@ class BinarySearchTree(object):
     def _traverse_pre_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative pre-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Traverse pre-order without using recursion (stretch challenge)
-        pass
+        Running time:   O(3n) because each node is called recursively 3 times.
+                        Reduces to O(n)
+        Memory usage:   If tree is balanced, height of tree is log(n) and memory
+                        usage is O(log(n))
+                        If Tree is unblanced, height of tree is approx n and
+                        memory usasge is O(n)"""
+        #  Traverse pre-order without using recursion (stretch challenge)
+        stack = LinkedStack()
+        stack.push(node)
+        while not stack.is_empty():
+            node = stack.pop()
+            visit(node.data)
+            if node.right:
+                stack.push(node.right)
+            if node.left:
+                stack.push(node.left)
+            
 
     def items_post_order(self):
         """Return a post-order list of all items in this binary search tree."""
