@@ -92,14 +92,14 @@ class ArrayQueue(object):
         """Insert the given item at the back of this queue.
         Running time: O(1)* generally there is empty space at back of list"""
         #  Insert given item
-        self.list.append(item)
-        return self
+        return self.list.append(item)
+
 
     def front(self):
         """Return the item at the front of this queue without removing it,
         or None if this queue is empty."""
         # Return front item, if any
-        if self.is_empty:
+        if self.is_empty():
             return None
         return self.list[0]
 
@@ -109,8 +109,9 @@ class ArrayQueue(object):
         or raise ValueError if this queue is empty.
         Running time: O(n) - has change indices for each item in array"""
         #  Remove and return front item, if any
+        if self.is_empty():
+            raise ValueError('Empty Queue')
         return self.list.pop(0)
-
 
 # Implement LinkedQueue and ArrayQueue above, then change the assignment below
 # to use each of your Queue implementations to verify they each pass all tests
