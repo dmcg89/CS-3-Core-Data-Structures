@@ -18,12 +18,26 @@ class SetTest(unittest.TestCase):
         assert set1.contains(2) == True
         assert set1.contains(3) == True
     
+    def test_contains_strings(self):
+        set1 = Set(['A', 'B', 'C'])
+        assert set1.contains('A') == True
+        assert set1.contains('B') == True
+        assert set1.contains('C') == True
+    
     def test_add_and_contains(self):
         set1 = Set()
         set1.add(1)
         set1.add(2)
         assert set1.contains(1) == True
         assert set1.contains(2) == True
+        assert set1.contains(3) == False
+
+    def test_add_and_contains_strings(self):
+        set1 = Set()
+        set1.add('A')
+        set1.add('B')
+        assert set1.contains('A') == True
+        assert set1.contains('B') == True
         assert set1.contains(3) == False
     
     def test_delete(self):
@@ -37,7 +51,19 @@ class SetTest(unittest.TestCase):
         set1.remove(3)
         assert set1.contains(3) == False
         assert set1.size() == 0
-        
+
+    def test_delete_strings(self):
+        set1 = Set(['A', 'B', 'C'])
+        set1.remove('A')
+        assert set1.size() == 2
+        assert set1.contains('A') == False
+        set1.remove('B')
+        assert set1.size() == 1
+        assert set1.contains('B') == False
+        set1.remove('C')
+        assert set1.contains('C') == False
+        assert set1.size() == 0
+
     def test_union(self):
         set1 = Set([1, 2, 3])
         set2 = Set([3, 4, 5])
@@ -49,6 +75,18 @@ class SetTest(unittest.TestCase):
         assert union_set.contains(5)
         assert union_set.size() == 5
 
+    def test_union_strings(self):
+        set1 = Set(['A', 'B', 'C'])
+        set2 = Set(['D', 'E', 'C'])
+        union_set = set1.union(set2)
+        assert union_set.contains('A')
+        assert union_set.contains('B')
+        assert union_set.contains('C')
+        assert union_set.contains('D')
+        assert union_set.contains('E')
+        assert union_set.size() == 5
+
+
     def test_intersection(self):
         set1 = Set([1, 2, 3])
         set2 = Set([2, 3, 4])
@@ -58,7 +96,17 @@ class SetTest(unittest.TestCase):
         assert intersect_set.contains(1) == False
         assert intersect_set.contains(4) == False
         assert intersect_set.size() == 2
-    
+
+    def test_intersection_strings(self):
+        set1 = Set(['A', 'B', 'C'])
+        set2 = Set(['B', 'C', 'D'])
+        intersect_set = set1.intersect(set2)
+        assert intersect_set.contains('B') == True
+        assert intersect_set.contains('C') == True
+        assert intersect_set.contains('A') == False
+        assert intersect_set.contains('D') == False
+        assert intersect_set.size() == 2
+
     def test_difference(self):
         set1 = Set([1, 2, 3])
         set2 = Set([2, 3, 4])
