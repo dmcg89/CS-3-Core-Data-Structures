@@ -41,6 +41,7 @@ def find_all_indexes(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # Implement find_all_indexes here (iteratively and/or recursively)
+    start_time = time.time()
     indices_list = []
     text = list(text)
     i = 0
@@ -60,6 +61,7 @@ def find_all_indexes(text, pattern):
         else:
             i += 1
     print (indices_list)
+    print('runtime was:', (time.time() - start_time))
     return indices_list
 
 
