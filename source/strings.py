@@ -1,4 +1,5 @@
 #!python
+import time
 
 def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
@@ -17,6 +18,7 @@ def find_index(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # Implement find_index here (iteratively and/or recursively)
+    start_time = time.time()
     if len(pattern) == 0:
         return False
     for i in range(len(text) - len(pattern) + 1):
@@ -29,6 +31,7 @@ def find_index(text, pattern):
                    break
             if pattern_match == True:         # Pattern matches
                 return i
+    print('runtime was:', (time.time() - start_time))
     return None
 
 
